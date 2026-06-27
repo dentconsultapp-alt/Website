@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DentConsult — On-Demand Dental Specialists for Your Clinic</title>
+<meta name="description" content="DentConsult connects dental clinics with specialist consultant dentists nearby. Post a job, get matched in minutes, and pay securely — with an SOS fast-lane for emergencies." />
+<link rel="icon" type="image/png" href="logo.png" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="DentConsult — On-Demand Dental Specialists" />
+<meta property="og:description" content="The fastest way to bring an expert dentist into your clinic. Post a job, get matched, done." />
+<meta property="og:image" content="logo.png" />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --teal:#3997A2;
+  --purple:#694EA0;
+  --teal-light:#5fd0db;
+  --purple-light:#9b7fd4;
+  --bg:#070713;
+  --bg-soft:#0e0e22;
+  --card:rgba(255,255,255,0.045);
+  --card-border:rgba(255,255,255,0.09);
+  --text:#eef0f7;
+  --muted:#9aa0b8;
+  --grad:linear-gradient(120deg,var(--teal),var(--purple));
+  --grad-bright:linear-gradient(120deg,var(--teal-light),var(--purple-light));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:clip;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.brandmark{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.02em;line-height:1.1}
+a{color:inherit;text-decoration:none}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.grad-text{background:var(--grad-bright);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- animated background glow ---------- */
+.bg-fx{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.45;animation:float 18s ease-in-out infinite}
+.blob.a{width:520px;height:520px;background:var(--teal);top:-160px;left:-120px}
+.blob.b{width:600px;height:600px;background:var(--purple);top:240px;right:-200px;animation-delay:-6s}
+.blob.c{width:420px;height:420px;background:#2b6c7a;bottom:-160px;left:30%;animation-delay:-11s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.12)}}
+.grid-overlay{position:fixed;inset:0;z-index:-1;
+  background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 40%,transparent 100%);
+}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(7,7,19,0.6);border-bottom:1px solid var(--card-border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo-wrap{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk';font-weight:700;font-size:20px}
+.logo-wrap img{height:38px;width:38px;object-fit:contain;border-radius:9px;background:#fff;padding:3px}
+.logo-wrap .d{color:var(--teal-light)}.logo-wrap .c{color:var(--purple-light)}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{color:var(--muted);font-size:15px;font-weight:500;white-space:nowrap;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-weight:600;border-radius:12px;white-space:nowrap;transition:transform .15s ease, box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--grad);color:#fff;padding:11px 22px;font-size:15px;box-shadow:0 8px 24px rgba(105,78,160,0.35)}
+.btn-primary:hover{box-shadow:0 12px 32px rgba(57,151,162,0.45)}
+.nav-toggle{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer}
+
+/* ---------- hero ---------- */
+.hero{padding:90px 0 70px;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:50px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 15px;border:1px solid var(--card-border);background:var(--card);border-radius:999px;font-size:13px;color:var(--muted);margin-bottom:24px}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:#48e08b;box-shadow:0 0 10px #48e08b}
+.hero h1{font-size:clamp(38px,5.4vw,62px);font-weight:700;margin-bottom:22px}
+.hero p.sub{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:540px;margin-bottom:34px}
+.store-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.store-btn{display:flex;align-items:center;gap:12px;background:#0c0c1c;border:1px solid var(--card-border);border-radius:14px;padding:11px 20px;cursor:pointer;transition:transform .15s,border-color .2s}
+.store-btn:hover{transform:translateY(-3px);border-color:var(--teal)}
+.store-btn svg{width:26px;height:26px;flex-shrink:0}
+.store-btn .s1{font-size:11px;color:var(--muted);line-height:1.1}
+.store-btn .s2{font-size:17px;font-weight:600;font-family:'Space Grotesk';line-height:1.15}
+.store-note{font-size:13px;color:#6f7591}
+
+/* phone mockup */
+.phone-stage{display:flex;justify-content:center;position:relative}
+.phone-glow{position:absolute;inset:0;background:var(--grad);filter:blur(70px);opacity:.35;border-radius:50%}
+.phone{position:relative;width:290px;height:600px;background:#0b0b18;border-radius:42px;border:2px solid rgba(255,255,255,0.12);box-shadow:0 30px 80px rgba(0,0,0,.6);padding:14px;animation:rise 1s ease}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.phone-notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0b0b18;border-radius:0 0 16px 16px;z-index:3}
+.screen{width:100%;height:100%;border-radius:30px;overflow:hidden;background:#F5F5F5;display:flex;flex-direction:column;position:relative;font-family:'Inter',sans-serif;text-align:left}
+/* header — solid purple, rounded bottom */
+.scr-head{background:#694EA0;border-radius:0 0 16px 16px;padding:38px 14px 14px;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.scr-headtop{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:13px}
+.scr-toggle{display:flex;background:rgba(255,255,255,.18);border-radius:999px;padding:3px;font-size:11px;font-weight:600;justify-self:center}
+.scr-toggle span{padding:4px 12px;border-radius:999px;color:rgba(255,255,255,.85)}
+.scr-toggle span.on{background:#fff;color:#694EA0}
+.scr-headicons{display:flex;gap:13px;align-items:center;justify-self:end}
+.scr-headicons svg{width:19px;height:19px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.scr-bell{position:relative;display:inline-flex}
+.scr-bell .dot{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#E8394D;border:1.5px solid #694EA0}
+.scr-title{font-family:'Space Grotesk';font-weight:700;font-size:19px;line-height:1.15}
+.scr-sub{font-size:12px;opacity:.9;margin-top:3px}
+/* body */
+.scr-body{flex:1;padding:13px;display:flex;flex-direction:column;overflow:hidden}
+.scr-secrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.scr-sec{color:#3997A2;font-weight:600;font-size:14px;font-family:'Space Grotesk'}
+.scr-sort{display:flex;align-items:center;gap:5px;font-size:11px;color:#888;border:1px solid #E0E0E0;border-radius:8px;padding:5px 9px;background:#fff}
+.scr-sort svg{width:13px;height:13px;stroke:#888;fill:none;stroke-width:2;stroke-linecap:round}
+.scr-card{background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.07);margin-bottom:11px}
+.scr-card .crow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.scr-cname{color:#694EA0;font-weight:600;font-size:14px}
+.scr-cicons{display:flex;gap:9px;flex-shrink:0}
+.scr-cicons svg{width:18px;height:18px;stroke:#3997A2;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.scr-meta{color:#888;font-size:11.5px;margin-top:5px}
+.scr-line{color:#555;font-size:11.5px;margin-top:4px}
+.scr-line b{color:#1A1A1A;font-weight:600}
+.scr-btns{display:flex;gap:8px;margin-top:11px}
+.scr-btn{flex:1;text-align:center;font-size:11.5px;font-weight:600;padding:7px 0;border-radius:8px;border:1.5px solid #694EA0;color:#694EA0;background:#fff}
+.scr-btn.danger{border-color:#E53935;color:#E53935}
+/* floating + */
+.scr-fab{position:absolute;right:14px;bottom:74px;width:48px;height:48px;border-radius:50%;background:#3997A2;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.28);z-index:5}
+.scr-fab svg{width:24px;height:24px;stroke:#fff;stroke-width:2.6;fill:none;stroke-linecap:round}
+/* bottom nav */
+.scr-nav{height:60px;background:#694EA0;border-radius:14px 14px 0 0;display:flex;justify-content:space-around;align-items:center;box-shadow:0 -4px 12px rgba(0,0,0,.1)}
+.scr-tab{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(255,255,255,.6)}
+.scr-tab svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.scr-tab span{font-size:9px;font-weight:500}
+.scr-tab.on{color:#fff}
+.scr-tab.on span{font-weight:600}
+.scr-tab.on svg{stroke-width:2.5}
+
+/* ---------- generic section ---------- */
+section{padding:80px 0;position:relative}
+.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:13px;font-weight:600;color:var(--teal-light);margin-bottom:14px}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 54px}
+.sec-head h2{font-size:clamp(28px,3.6vw,42px);font-weight:700;margin-bottom:16px}
+.sec-head p{color:var(--muted);font-size:17px}
+
+/* stat bar */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border);padding:34px 0}
+.stat .n{font-family:'Space Grotesk';font-weight:700;font-size:34px}
+.stat .l{color:var(--muted);font-size:14px;margin-top:4px}
+
+/* audience split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.aud-card{background:var(--card);border:1px solid var(--card-border);border-radius:22px;padding:36px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
+.aud-card:hover{transform:translateY(-4px);border-color:var(--teal)}
+.aud-card .ic{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;background:var(--grad)}
+.aud-card h3{font-size:24px;margin-bottom:12px}
+.aud-card p{color:var(--muted);margin-bottom:18px}
+.aud-card ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.aud-card li{display:flex;gap:11px;align-items:flex-start;font-size:15px;color:#cdd2e4}
+.aud-card li svg{width:20px;height:20px;flex-shrink:0;margin-top:2px}
+
+/* feature grid */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.feat{background:var(--card);border:1px solid var(--card-border);border-radius:18px;padding:28px;transition:transform .25s,background .25s}
+.feat:hover{transform:translateY(-4px);background:rgba(255,255,255,0.07)}
+.feat .ic{width:46px;height:46px;border-radius:12px;background:rgba(57,151,162,.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.feat .ic svg{width:24px;height:24px;stroke:var(--teal-light)}
+.feat h3{font-size:18px;margin-bottom:9px}
+.feat p{color:var(--muted);font-size:14.5px}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.step{text-align:center;position:relative}
+.step .num{width:58px;height:58px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;font-size:22px;background:var(--card);border:1px solid var(--card-border);color:var(--teal-light)}
+.step h3{font-size:17px;margin-bottom:8px}
+.step p{color:var(--muted);font-size:14px}
+
+/* SOS banner */
+.sos-banner{background:linear-gradient(120deg,rgba(255,93,108,.14),rgba(105,78,160,.14));border:1px solid rgba(255,93,108,.3);border-radius:24px;padding:48px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}
+.sos-banner h2{font-size:32px;margin-bottom:12px}
+.sos-banner p{color:var(--muted);max-width:560px}
+.sos-icon{width:90px;height:90px;border-radius:24px;background:linear-gradient(120deg,#ff5d6c,#ff8a5b);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px rgba(255,93,108,.4)}
+
+/* pricing */
+.price-card{max-width:520px;margin:0 auto;background:var(--card);border:1px solid var(--card-border);border-radius:26px;padding:50px 44px;text-align:center;position:relative;overflow:hidden}
+.price-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(57,151,162,.12),transparent 60%)}
+.price-card>*{position:relative}
+.price-big{font-family:'Space Grotesk';font-weight:700;font-size:72px;line-height:1}
+.price-big small{font-size:24px;color:var(--muted)}
+.price-card .lead{font-size:18px;margin:14px 0 26px;color:#cdd2e4}
+.price-list{list-style:none;text-align:left;display:inline-flex;flex-direction:column;gap:13px;margin-bottom:8px}
+.price-list li{display:flex;gap:11px;align-items:center;color:#cdd2e4}
+.price-list svg{width:20px;height:20px;color:var(--teal-light)}
+
+/* download CTA */
+.cta{text-align:center;background:var(--grad);border-radius:30px;padding:64px 30px;position:relative;overflow:hidden}
+.cta::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.18),transparent 50%)}
+.cta>*{position:relative}
+.cta h2{font-size:clamp(28px,4vw,44px);color:#fff;margin-bottom:16px}
+.cta p{color:rgba(255,255,255,.9);font-size:18px;margin-bottom:30px}
+.cta .store-row{justify-content:center}
+.cta .store-btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
+.cta .store-btn:hover{background:rgba(255,255,255,.2)}
+
+/* footer */
+footer{border-top:1px solid var(--card-border);padding:56px 0 36px;margin-top:30px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;margin-bottom:40px}
+.foot-grid h4{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:16px}
+.foot-grid a,.foot-grid p{display:block;color:var(--muted);font-size:14.5px;margin-bottom:10px;transition:color .2s}
+.foot-grid a:hover{color:#fff}
+.foot-bottom{border-top:1px solid var(--card-border);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#6f7591;font-size:13.5px}
+
+/* social proof — research band */
+.research-band{display:grid;grid-template-columns:auto 1fr;gap:46px;align-items:center;background:var(--card);border:1px solid var(--card-border);border-radius:26px;padding:48px}
+.research-num{text-align:center;padding-right:44px;border-right:1px solid var(--card-border)}
+.rn-big{font-family:'Space Grotesk';font-weight:700;font-size:74px;line-height:1}
+.rn-label{color:var(--muted);font-size:15px;margin-top:10px;max-width:170px;margin-inline:auto}
+.research-copy h2{font-size:clamp(24px,3vw,34px);margin:8px 0 14px}
+.research-copy>p{color:var(--muted);font-size:16px;margin-bottom:24px}
+.research-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.research-list li{background:rgba(255,255,255,.04);border:1px solid var(--card-border);border-radius:12px;padding:13px 16px}
+.research-list .ask{display:block;color:#aeb3c9;font-size:13.5px;font-style:italic;margin-bottom:5px}
+.research-list .got{display:flex;gap:9px;align-items:center;color:#fff;font-size:14.5px;font-weight:600}
+.research-list .got svg{width:17px;height:17px;stroke:var(--teal-light);fill:none;stroke-width:2.4;flex-shrink:0}
+
+/* social proof — founder band */
+.founder-band{display:flex;gap:34px;align-items:center;background:linear-gradient(120deg,rgba(57,151,162,.12),rgba(105,78,160,.12));border:1px solid var(--card-border);border-radius:26px;padding:44px 48px}
+.founder-badge{width:96px;height:96px;border-radius:24px;background:var(--grad);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 12px 36px rgba(105,78,160,.35)}
+.founder-badge svg{width:50px;height:50px}
+.founder-band h2{font-size:clamp(24px,3vw,32px);margin:8px 0 12px}
+.founder-band p{color:var(--muted);font-size:16px;max-width:660px}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero p.sub{margin-left:auto;margin-right:auto}
+  .store-row{justify-content:center}
+  .phone-stage{margin-top:40px}
+  .split,.feat-grid,.steps,.stats{grid-template-columns:1fr 1fr}
+  .sos-banner{grid-template-columns:1fr;text-align:center}
+  .sos-icon{margin:0 auto}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .research-band{grid-template-columns:1fr;gap:30px}
+  .research-num{border-right:none;border-bottom:1px solid var(--card-border);padding:0 0 26px}
+  .founder-band{flex-direction:column;text-align:center}
+  .founder-badge{margin:0 auto}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:var(--bg-soft);padding:22px 24px;border-bottom:1px solid var(--card-border)}
+  .nav-toggle{display:block}
+  .split,.feat-grid,.steps,.stats,.foot-grid{grid-template-columns:1fr}
+  .stat{text-align:center}
+  section{padding:56px 0}
+  .container{padding:0 20px}
+  /* tighter, smaller type for phones */
+  .hero{padding:60px 0 48px}
+  .hero h1{font-size:30px;margin-bottom:18px}
+  .hero p.sub{font-size:16px;margin-bottom:26px}
+  .pill{font-size:12px;margin-bottom:20px}
+  .eyebrow{font-size:12px;margin-bottom:12px}
+  .sec-head{margin-bottom:36px}
+  .sec-head h2{font-size:25px}
+  .sec-head p{font-size:15.5px}
+  .stat .n{font-size:30px}
+  .stat .l{font-size:13px}
+  .stats{padding:28px 0;gap:26px}
+  .aud-card{padding:28px 24px}
+  .aud-card h3{font-size:21px}
+  .aud-card li{font-size:14.5px}
+  .feat{padding:24px}
+  .feat h3{font-size:17px}
+  .step h3{font-size:16px}
+  .sos-banner{padding:34px 24px}
+  .sos-banner h2{font-size:25px}
+  .sos-banner p{font-size:15px}
+  .price-card{padding:40px 26px}
+  .price-big{font-size:56px}
+  .price-card .lead{font-size:16px}
+  .cta{padding:48px 22px}
+  .cta h2{font-size:28px}
+  .cta p{font-size:16px}
+  .research-band{padding:32px 24px}
+  .rn-big{font-size:56px}
+  .research-copy h2{font-size:24px}
+  .founder-band{padding:34px 24px}
+}
+@media(max-width:380px){
+  .hero h1{font-size:27px}
+  .sec-head h2{font-size:23px}
+  .price-big{font-size:50px}
+  .store-btn{padding:10px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-fx"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div></div>
+<div class="grid-overlay"></div>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#top" class="logo-wrap">
+      <img src="logo-icon.png" alt="DentConsult logo" />
+      <span><span class="d">Dent</span><span class="c">Consult</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#what">About</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#download" class="btn btn-primary">Get the App</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="reveal in">
+      <span class="pill"><span class="dot"></span> Now matching dentists across India</span>
+      <h1>The expert dentist your clinic needs, <span class="grad-text">on demand.</span></h1>
+      <p class="sub">DentConsult connects dental clinics with specialist consultant dentists nearby. Post a job, get matched in minutes, and pay securely — with an <strong>SOS fast-lane</strong> for emergencies.</p>
+      <div class="store-row">
+        <div class="store-btn" role="button" tabindex="0" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M16.36 1.43c.04 1.06-.35 2.09-1.04 2.86-.7.78-1.83 1.38-2.92 1.29-.05-1.04.43-2.12 1.08-2.81.73-.79 1.98-1.36 2.88-1.34zM20.5 17.2c-.45 1.04-.67 1.5-1.25 2.42-.81 1.29-1.96 2.89-3.38 2.9-1.26.01-1.58-.82-3.29-.81-1.71.01-2.07.83-3.33.82-1.42-.01-2.5-1.46-3.31-2.74C2.7 17.4 2.46 13.06 4.43 10.76c.95-1.12 2.45-1.83 3.86-1.83 1.43 0 2.33.81 3.51.81 1.14 0 1.84-.81 3.49-.81 1.25 0 2.58.68 3.52 1.86-3.09 1.69-2.59 6.11.69 6.41z"/></svg>
+          <div><div class="s1">Download on the</div><div class="s2">App Store</div></div>
+        </div>
+        <div class="store-btn" role="button" tabindex="0" aria-label="Get it on Google Play">
+          <svg viewBox="0 0 24 24"><path fill="#5fd0db" d="M3.6 2.3c-.3.3-.5.8-.5 1.4v16.6c0 .6.2 1.1.5 1.4l.1.1L13 12.1v-.2L3.7 2.2z"/><path fill="#9b7fd4" d="M16.2 15.3 13 12.1v-.2l3.2-3.2.1.1 3.8 2.2c1.1.6 1.1 1.7 0 2.3z"/><path fill="#48e08b" d="M16.3 15.2 13 12 3.6 21.7c.4.4 1 .4 1.7.1z"/><path fill="#ff8a5b" d="M16.3 8.8 5.3 2.2c-.7-.4-1.3-.3-1.7.1L13 12z"/></svg>
+          <div><div class="s1">GET IT ON</div><div class="s2">Google Play</div></div>
+        </div>
+      </div>
+      <p class="store-note">📱 Launching soon on the App Store &amp; Google Play. Buttons are a preview while we finish store approval.</p>
+    </div>
+
+    <!-- phone mockup -->
+    <div class="phone-stage reveal in">
+      <div class="phone-glow"></div>
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="screen">
+          <div class="scr-head">
+            <div class="scr-headtop">
+              <span></span>
+              <div class="scr-toggle"><span class="on">Clin</span><span>Cons</span></div>
+              <div class="scr-headicons">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span class="scr-bell"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i class="dot"></i></span>
+              </div>
+            </div>
+            <div class="scr-title">Smile Dental Care</div>
+            <div class="scr-sub">Panjagutta, Hyderabad</div>
+          </div>
+
+          <div class="scr-body">
+            <div class="scr-secrow">
+              <div class="scr-sec">Consultants on board</div>
+              <div class="scr-sort"><svg viewBox="0 0 24 24"><path d="M3 6h18M6 12h12M10 18h4"/></svg>Sort</div>
+            </div>
+
+            <div class="scr-card">
+              <div class="crow">
+                <div class="scr-cname">Dr. Anjali Reddy</div>
+                <div class="scr-cicons">
+                  <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+              </div>
+              <div class="scr-meta">Endodontics • MDS</div>
+              <div class="scr-line">Patient: <b>Riya Sharma</b></div>
+              <div class="scr-line">Required on: <b>15-06-2026</b></div>
+              <div class="scr-btns"><div class="scr-btn">Reschedule</div><div class="scr-btn danger">Cancel</div></div>
+            </div>
+
+            <div class="scr-card">
+              <div class="crow">
+                <div class="scr-cname">Dr. Karthik Rao</div>
+                <div class="scr-cicons">
+                  <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+              </div>
+              <div class="scr-meta">Oral Surgery • MDS</div>
+              <div class="scr-line">Patient: <b>Imran Khan</b></div>
+              <div class="scr-line">Required on: <b>18-06-2026</b></div>
+              <div class="scr-btns"><div class="scr-btn">Reschedule</div><div class="scr-btn danger">Cancel</div></div>
+            </div>
+          </div>
+
+          <div class="scr-fab"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+
+          <div class="scr-nav">
+            <div class="scr-tab on"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg><span>Home</span></div>
+            <div class="scr-tab"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span>Jobs</span></div>
+            <div class="scr-tab"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Calendar</span></div>
+            <div class="scr-tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>History</span></div>
+            <div class="scr-tab"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STATS ============ -->
+<div class="container">
+  <div class="stats reveal">
+    <div class="stat"><div class="n grad-text">1%</div><div class="l">Flat fee — no subscriptions, ever</div></div>
+    <div class="stat"><div class="n grad-text">&lt;1 hr</div><div class="l">SOS emergency response window</div></div>
+    <div class="stat"><div class="n grad-text">8+</div><div class="l">Dental specialities supported</div></div>
+    <div class="stat"><div class="n grad-text">3</div><div class="l">Platforms — Android, iPhone &amp; Web</div></div>
+  </div>
+</div>
+
+<!-- ============ SOCIAL PROOF — RESEARCH ============ -->
+<section id="research">
+  <div class="container">
+    <div class="research-band reveal">
+      <div class="research-num">
+        <div class="rn-big grad-text">1,000</div>
+        <div class="rn-label">dentists surveyed across India</div>
+      </div>
+      <div class="research-copy">
+        <div class="eyebrow">Built on real research</div>
+        <h2>We asked 1,000 dentists what they actually need</h2>
+        <p>Before building DentConsult, we ran a nationwide email survey of 1,000 dentists across India — clinic owners and visiting specialists alike — to find where the real friction is in everyday practice. Every core feature here comes straight from what they told us.</p>
+        <ul class="research-list">
+          <li>
+            <span class="ask">“Scheduling patients I can’t treat myself costs me.”</span>
+            <span class="got"><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg> On-demand specialist matching, with an SOS lane for emergencies</span>
+          </li>
+          <li>
+            <span class="ask">“Finding and trusting a consultant takes too long.”</span>
+            <span class="got"><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg> Profiles, ratings &amp; reliability scores — apply and accept in one tap</span>
+          </li>
+          <li>
+            <span class="ask">“Getting paid is slow and unclear.”</span>
+            <span class="got"><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg> Instant, transparent payments — 99% to the consultant, a flat 1% fee</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT IS IT ============ -->
+<section id="what">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">What is DentConsult</div>
+      <h2>Like ride-hailing — but for dental specialists</h2>
+      <p>A clinic needs an extra expert for a tricky root canal, a surgery, or a busy day. Nearby specialists see the request, apply, and the clinic picks one. Simple, fast, and built for real clinical life.</p>
+    </div>
+    <div class="split">
+      <div class="aud-card reveal">
+        <div class="ic">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 13v.01M9 17v.01"/></svg>
+        </div>
+        <h3>For Clinics</h3>
+        <p>Run a clinic and need an extra pair of expert hands? Post a job and let qualified specialists come to you.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fd0db" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Post a regular job or an instant SOS emergency request</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fd0db" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Compare applicants by distance, price, rating &amp; reliability</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fd0db" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Accept with one tap — keep a backup pool open</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fd0db" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Pay the agreed amount securely after the work is done</li>
+        </ul>
+      </div>
+      <div class="aud-card reveal">
+        <div class="ic">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 2C8 2 7 6 7 9c0 5-2 6-2 9a3 3 0 0 0 6 0c0-2 .5-3 1-3s1 1 1 3a3 3 0 0 0 6 0c0-3-2-4-2-9 0-3-1-7-5-7z"/></svg>
+        </div>
+        <h3>For Consultants</h3>
+        <p>An MDS/BDS specialist who visits multiple clinics? Find paid work nearby that fits your expertise.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fd0db" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Get notified the moment a matching job is posted</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fd0db" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Showcase your profile, cases &amp; star rating</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fd0db" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Apply in one tap, manage your calendar &amp; conflicts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#5fd0db" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Get paid straight to your bank — 99% of every job</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Everything built in</div>
+      <h2>Powerful features, beautifully simple</h2>
+      <p>From secure sign-in to live notifications, DentConsult handles the busywork so you can focus on patients.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>One-tap secure login</h3><p>Sign in by mobile OTP, then unlock instantly with Face ID or fingerprint on return visits.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Built-in messaging</h3><p>Chat directly with the clinic or consultant, share photos and X-rays, and keep everything in one thread.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><h3>Push notifications</h3><p>Get alerted the instant a job, application, acceptance, or payment happens — even with the app closed.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Live maps &amp; distance</h3><p>See every clinic and consultant on a map with the real distance in km, powered by OpenStreetMap.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h3>Calendar &amp; history</h3><p>Day, week, month or agenda views of your bookings, plus a tidy history of every completed job.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Reliability ratings</h3><p>Star reviews and a transparent cancellation rate let both sides judge reliability before committing.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">How it works</div>
+      <h2>From need to done in four steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">1</div><h3>Post a job</h3><p>The clinic describes the work, speciality needed, date and budget — or fires off an SOS.</p></div>
+      <div class="step reveal"><div class="num">2</div><h3>Get matched</h3><p>Nearby specialists are notified instantly and apply. The clinic reviews and accepts the best fit.</p></div>
+      <div class="step reveal"><div class="num">3</div><h3>Do the work</h3><p>Both sides see it on their calendar and chat to coordinate. The consultant visits and treats.</p></div>
+      <div class="step reveal"><div class="num">4</div><h3>Pay &amp; rate</h3><p>The clinic pays the agreed amount securely, the consultant gets paid, and both leave a rating.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOS ============ -->
+<section>
+  <div class="container">
+    <div class="sos-banner reveal">
+      <div>
+        <h2>⚡ The SOS fast-lane</h2>
+        <p>A patient needs urgent specialist help and you can't wait. Fire an SOS and nearby experts are alerted immediately — designed to get help to your chair in under an hour.</p>
+      </div>
+      <div class="sos-icon">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="#fff"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOCIAL PROOF — FOUNDER ============ -->
+<section id="founder">
+  <div class="container">
+    <div class="founder-band reveal">
+      <div class="founder-badge">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C8 2 6.5 4 5.6 5.5 4.3 7.6 4.2 9.4 4.7 11.4c.4 1.5.6 2.6.8 4 .3 2.2.6 4.3 1.5 5.6.45.65 1.3.6 1.65-.05.6-.95.78-2.4.95-3.85.13-1.05.3-1.85 1.4-1.85s1.27.8 1.4 1.85c.17 1.45.35 2.9.95 3.85.35.65 1.2.7 1.65.05.9-1.3 1.2-3.4 1.5-5.6.2-1.4.4-2.5.8-4 .5-2 .4-3.8-.9-5.9C17.5 4 16 2 12 2z"/></svg>
+      </div>
+      <div>
+        <div class="eyebrow">Built by a dentist, for dentists</div>
+        <h2>Made by someone who lives these problems</h2>
+        <p>DentConsult wasn’t built by outsiders guessing at clinical life. It’s created by a practicing dentist who has stood chair-side needing a specialist at short notice, juggled visits between clinics, and felt every gap this app closes. That’s why it fits the way you actually work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Honest pricing</div>
+      <h2>Just 1%. Nothing else.</h2>
+      <p>No subscriptions, no upfront fees, no booking charges. If nobody uses the app, nobody pays.</p>
+    </div>
+    <div class="price-card reveal">
+      <div class="price-big grad-text">1<small>%</small></div>
+      <div class="lead">flat fee on every completed consultation</div>
+      <ul class="price-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Free to download and use</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Consultant keeps 99% of every job</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Secure payments via Razorpay (UPI, Card, Net Banking)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg> Money is split automatically — we never hold your funds</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOWNLOAD CTA ============ -->
+<section id="download">
+  <div class="container">
+    <div class="cta reveal">
+      <h2>Ready when you are</h2>
+      <p>DentConsult is coming to the App Store and Google Play. Get notified the moment it's live.</p>
+      <div class="store-row">
+        <div class="store-btn" role="button" tabindex="0" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M16.36 1.43c.04 1.06-.35 2.09-1.04 2.86-.7.78-1.83 1.38-2.92 1.29-.05-1.04.43-2.12 1.08-2.81.73-.79 1.98-1.36 2.88-1.34zM20.5 17.2c-.45 1.04-.67 1.5-1.25 2.42-.81 1.29-1.96 2.89-3.38 2.9-1.26.01-1.58-.82-3.29-.81-1.71.01-2.07.83-3.33.82-1.42-.01-2.5-1.46-3.31-2.74C2.7 17.4 2.46 13.06 4.43 10.76c.95-1.12 2.45-1.83 3.86-1.83 1.43 0 2.33.81 3.51.81 1.14 0 1.84-.81 3.49-.81 1.25 0 2.58.68 3.52 1.86-3.09 1.69-2.59 6.11.69 6.41z"/></svg>
+          <div><div class="s1">Download on the</div><div class="s2">App Store</div></div>
+        </div>
+        <div class="store-btn" role="button" tabindex="0" aria-label="Get it on Google Play">
+          <svg viewBox="0 0 24 24"><path fill="#fff" d="M3.6 2.3c-.3.3-.5.8-.5 1.4v16.6c0 .6.2 1.1.5 1.4l.1.1L13 12.1v-.2L3.7 2.2z"/><path fill="#fff" d="M16.2 15.3 13 12.1v-.2l3.2-3.2.1.1 3.8 2.2c1.1.6 1.1 1.7 0 2.3z"/><path fill="#fff" d="M16.3 15.2 13 12 3.6 21.7c.4.4 1 .4 1.7.1z"/><path fill="#fff" d="M16.3 8.8 5.3 2.2c-.7-.4-1.3-.3-1.7.1L13 12z"/></svg>
+          <div><div class="s1">GET IT ON</div><div class="s2">Google Play</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo-wrap" style="margin-bottom:16px"><img src="logo-icon.png" alt="DentConsult" /><span><span class="d">Dent</span><span class="c">Consult</span></span></div>
+        <p style="max-width:320px">Connecting dental clinics with specialist consultant dentists across India — fast, fair, and secure.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#what">About</a>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div>
+        <h4>Company &amp; Legal</h4>
+        <a href="/contact.html">Contact us</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/refund.html">Refund &amp; Cancellation</a>
+        <p style="margin-top:6px"><a href="mailto:dentconsultapp@gmail.com">dentconsultapp@gmail.com</a></p>
+        <p><a href="tel:+917680818870">+91 76808 18870</a></p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> DentConsult. All rights reserved.</span>
+      <span>Kothapeta, Vinukonda, Palnadu District, Andhra Pradesh, India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile nav toggle
+  const tog = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  tog.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
