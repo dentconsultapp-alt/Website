@@ -1,0 +1,4 @@
+# Never commit collected data or any local env/key files
+*.csv
+.env
+.env.*
